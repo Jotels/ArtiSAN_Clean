@@ -1,0 +1,79 @@
+niflheim: False
+DiffSize_training_systems: True
+scalar_pred: True
+
+model_dir: Models/Platinum
+
+Fig4_Project_Name: ArtiSAN_Fig4_Systems
+Fig4_Traj_Dir: ../ArtiSAN/Trajs/Fig4_Trajs
+
+Fig5_Project_Name: ArtiSAN_Fig5_Systems
+Fig5_Traj_Dir: ../ArtiSAN/Trajs/Fig5_Trajs
+
+Fig6_Project_Name: ArtiSAN_Fig6_Systems
+Fig6_Traj_Dir: ../ArtiSAN/Trajs/Fig6_Trajs
+
+load_model: False
+
+# Below this line is hyperparameters. Above flags are more important for experiments
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Very experimental - Use entropy estimation for reward?
+eom_coef: 0
+use_eom_reward: False
+
+# Eval stuff
+num_eval_episodes: 1
+num_eval_systems: 10
+num_eval_metropolis_systems: 1
+
+#alloy parameters
+num_unit_cells: 2
+formula: 'AlNiCuPdAgPtAu'
+composition: [0.33, 0.33, 0.34]
+lattice_structure: 'fcc'
+cell_size: [7, 7, 7]
+
+# A small offset in cutoff ensures that next-nearest neighbors are included
+cutoff_offset: 0.01
+
+#Conv parameters
+node_dim: 30
+
+conv_depth: 2
+
+pred_net_width_policy: 64
+pred_net_width_critic: 256
+
+horizon: 20
+terminal_only: False
+
+#training config
+seed: 42
+
+# ADAM Learning Rate parameters
+learning_rate: 0.0003
+gamma_lr: 0.5
+anneal_lr: True
+anneal_every: 1000
+
+weight_decay: 0.00
+momentum: 0.9
+
+gamma: 0.97
+
+#ppo stuff
+amsgrad: True
+clip_ratio: 0.3
+
+vf_coef: 1.0
+p_coef: 22000
+entropy_coef: 1.25
+
+target_kl: 0.01
+gradient_clip: 0.5
+start_num_steps: 0
+max_num_steps: 50000000
+lambda: 1.0
+max_num_train_iters: 7
+num_steps_per_iter: 130
+save_freq: 20
