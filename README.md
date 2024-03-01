@@ -1,4 +1,3 @@
-# Official Code Repository for The Artificial Structure Arranging Net (ArtiSAN)
 # ArtiSAN: A deep reinforcement learning agent for solid structure search
 This repository contains the code used in training and performing experiments with the Artificial Structure Arranging Net (ArtiSAN).
 
