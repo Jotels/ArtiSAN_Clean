@@ -1,4 +1,4 @@
-# ArtiSAN: A deep reinforcement learning agent for solid structure search
+# ArtiSAN: Navigating the complexity of material structures with deep reinforcement learning
 This repository contains the code used in training and performing experiments with the Artificial Structure Arranging Net (ArtiSAN).
 
 
