@@ -2,36 +2,29 @@ niflheim: False
 DiffSize_training_systems: True
 scalar_pred: True
 
+new_experiment_formulas: ['AlPt', 'Al2Pt3']
+cell_size: [7, 7, 7]
+
 model_dir: ../Models
 
 Fig4_Project_Name: ArtiSAN_Fig4_Systems
-Fig4_Traj_Dir: ../ArtiSAN/Trajs/Fig4_Trajs
+Fig4_Traj_Dir: ../Trajs/Fig4_Trajs
 
 Fig5_Project_Name: ArtiSAN_Fig5_Systems
-Fig5_Traj_Dir: ../ArtiSAN/Trajs/Fig5_Trajs
+Fig5_Traj_Dir: ../Trajs/Fig5_Trajs
 
 Fig6_Project_Name: ArtiSAN_Fig6_Systems
-Fig6_Traj_Dir: ../ArtiSAN/Trajs/Fig6_Trajs
+Fig6_Traj_Dir: ../Trajs/Fig6_Trajs
 
 load_model: False
 
 # Below this line is hyperparameters. Above flags are more important for experiments
 # ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Very experimental - Use entropy estimation for reward?
-eom_coef: 0
-use_eom_reward: False
-
-# Eval stuff
-num_eval_episodes: 1
-num_eval_systems: 10
-num_eval_metropolis_systems: 1
-
 #alloy parameters
 num_unit_cells: 2
 formula: 'AlNiCuPdAgPtAu'
 composition: [0.33, 0.33, 0.34]
 lattice_structure: 'fcc'
-cell_size: [7, 7, 7]
 
 # A small offset in cutoff ensures that next-nearest neighbors are included
 cutoff_offset: 0.01
