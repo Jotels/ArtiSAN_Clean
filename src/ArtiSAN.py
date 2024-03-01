@@ -46,17 +46,6 @@ class ArtiSAN(nn.Module):
                               num_layers=config["conv_depth"],
                               scalar_pred=config["scalar_pred"])
 
-        self.en_prep = nn.Sequential(
-            nn.Linear(self.node_dim*2, self.policy_width, device=self.device),
-            nn.ELU(),
-            nn.Linear(self.policy_width, self.node_dim*2, device=self.device),
-        )
-
-        for layer in self.en_prep:
-            classname = layer.__class__.__name__
-            if classname.find('Linear') != -1:
-                torch.nn.init.orthogonal_(layer.weight)
-
         self.booster = nn.Sequential(
             nn.Linear(self.node_dim, self.critic_width, device=self.device),
             nn.ELU(),
@@ -206,12 +195,9 @@ class ArtiSAN(nn.Module):
         atomic_feats, atoms_torch = self.make_atomic_tensors(obs, num_atoms=obs[0].num_atoms)
 
         # Focus
-        # New thing: We use "focus proposals" now, which are the full graph representation concatenated with the individual atomic representations
-        full_graph_rep = atomic_feats.mean(dim=1).unsqueeze(1) # Makes sense to use mean here, since we essentially want the focus_proposals to compare with the average node
+        full_graph_rep = atomic_feats.mean(dim=1).unsqueeze(1) 
         full_graph_rep = full_graph_rep.expand_as(atomic_feats)
         focus_proposals = torch.cat([full_graph_rep, atomic_feats], dim=2)
-
-        # focus_proposals = self.en_prep(focus_proposals)
 
         focus_logits = self.predict_focus_network(focus_proposals)  # n_obs x n_atoms x 1
         focus_logits = focus_logits.squeeze(-1)  # n_obs x n_atoms
@@ -242,13 +228,10 @@ class ArtiSAN(nn.Module):
         focus_emb = (atomic_feats.transpose(1, 2) @ focus_oh[:, :, None]).squeeze(-1)  # n_obs x n_latent
 
         # Switch
-        # boosted_nodes = self.booster(atomic_feats)
         foc_emb_rep = focus_emb.unsqueeze(1)
         foc_emb_rep = foc_emb_rep.expand_as(atomic_feats)
 
         switch_proposals = torch.cat([foc_emb_rep, atomic_feats], dim=2)
-
-        # switch_proposals = self.en_prep(switch_proposals)
 
         switch_logits = self.predict_switch_network(switch_proposals)  # n_obs x n_atoms x 1
         switch_logits = switch_logits.squeeze(-1)  # n_obs x n_atoms
@@ -276,9 +259,7 @@ class ArtiSAN(nn.Module):
         full_mask = torch.abs(focus_oh + switch_oh - torch.ones(focus_oh.shape, device=self.device))
 
         nodes_boosted = self.booster(self.booster(atomic_feats * full_mask.unsqueeze(-1)))
-        nodes_pooled = torch.sum(nodes_boosted, dim=1)  # Makes most sense to take the sum here, since we're doing a max-pooling over the atoms and want to predict the full energy of the system
-
-        # switch_prepped = self.en_prep(torch.cat([focus_emb, switch_emb], dim=1))
+        nodes_pooled = torch.sum(nodes_boosted, dim=1)  
 
         predicted_state_energy = self.critic((torch.cat([nodes_pooled, focus_emb, switch_emb], dim=1)))
         v = - predicted_state_energy
