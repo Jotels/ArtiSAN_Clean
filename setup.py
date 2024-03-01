@@ -9,7 +9,7 @@ with open(convert_path('src/version.py')) as file:
     exec(file.read(), version_dict)
 
 setup(
-    name='The ArtiSAN',
+    name='ArtiSAN',
     version=version_dict['__version__'],
     description='',
     long_description='',
