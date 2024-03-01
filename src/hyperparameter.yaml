@@ -2,7 +2,7 @@ niflheim: False
 DiffSize_training_systems: True
 scalar_pred: True
 
-model_dir: Models/Platinum
+model_dir: ../Models
 
 Fig4_Project_Name: ArtiSAN_Fig4_Systems
 Fig4_Traj_Dir: ../ArtiSAN/Trajs/Fig4_Trajs
