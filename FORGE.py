@@ -182,7 +182,7 @@ if __name__ == "__main__":
     if config["niflheim"]:
         config["num_procs"] = mpi.get_num_procs()
         config["multithread"] = True
-        model_dir = "/home/energy/jels/ArtiSAN/" + config["model_dir"]
+        model_dir = "../ArtiSAN/" + config["model_dir"]
     else:
         # Since we're running MPI on M1 right now
         config["num_procs"] = mpi.get_num_procs()
