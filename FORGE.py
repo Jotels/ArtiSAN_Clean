@@ -173,8 +173,7 @@ def ppo(
 
 
 if __name__ == "__main__":
-    # stream = open("/home/energy/jels/ArtiSAN/src/hyperparameter.yaml", "r")
-    stream = open("/Users/jonaselsborg/Desktop/ArtiSAN/src/hyperparameter.yaml")
+    stream = open("../src/hyperparameter.yaml")
 
     config = yaml.safe_load(stream)
 
