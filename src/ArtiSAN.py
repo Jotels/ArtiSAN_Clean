@@ -258,7 +258,7 @@ class ArtiSAN(nn.Module):
         # Critic
         full_mask = torch.abs(focus_oh + switch_oh - torch.ones(focus_oh.shape, device=self.device))
 
-        nodes_boosted = self.booster(self.booster(atomic_feats * full_mask.unsqueeze(-1)))
+        nodes_boosted = self.booster(atomic_feats * full_mask.unsqueeze(-1))
         nodes_pooled = torch.sum(nodes_boosted, dim=1)  
 
         predicted_state_energy = self.critic((torch.cat([nodes_pooled, focus_emb, switch_emb], dim=1)))
