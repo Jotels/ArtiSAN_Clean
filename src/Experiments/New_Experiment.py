@@ -12,8 +12,6 @@ from src.ArtiSAN import ArtiSAN
 from src.tools.buffer import PPOBuffer
 from src.reps.environment_hea import HEA
 from src.tools.util import to_numpy
-from ga_baseline.prepare_db import get_starting_population
-from ga_baseline.ga_baseline import ga_baseline
 import time
 from ase.io.trajectory import Trajectory
 from ase.io import write
