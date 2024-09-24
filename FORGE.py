@@ -92,7 +92,6 @@ def ppo(
     num_steps_per_iter = config["num_steps_per_iter"]
     amsgrad = config["amsgrad"]
     multithread = config["multithread"]
-    en_atom_scaling = config["en_atom_scaling"]
 
     # Set up experience buffer
 
@@ -107,7 +106,6 @@ def ppo(
         int_act_dim=2,
         gamma=gamma,
         lam=lam,
-        en_atom_scaling=en_atom_scaling,
     )
 
     optimizer = Adam(
