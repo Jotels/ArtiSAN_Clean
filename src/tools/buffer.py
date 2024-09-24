@@ -13,7 +13,7 @@ class PPOBuffer:
     for calculating the advantages of state-action pairs.
     """
 
-    def __init__(self, int_act_dim: int, size: int, gamma=0.99, lam=0.95, reward_scaling="hardscaling", en_atom_scaling='atoms') -> None:
+    def __init__(self, int_act_dim: int, size: int, gamma=0.99, lam=0.95) -> None:
         self.obs_buf: List[Optional[HEA]] = [None] * size  # observation buffer
         self.act_buf = np.empty((size, int_act_dim), dtype=np.float32)  # action buffer
         self.rew_buf_scaled = np.zeros(size, dtype=np.float32)  # reward buffer
@@ -34,8 +34,6 @@ class PPOBuffer:
         self.ptr = 0  # pointer
         self.path_start_idx = 0
         self.max_size = size
-        self.reward_scaling = reward_scaling
-        self.en_atom_scaling = en_atom_scaling
 
     def store(self,
               obs: HEA,
