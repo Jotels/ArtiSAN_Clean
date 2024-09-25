@@ -296,7 +296,6 @@ class HEA:
 
         self.current_atoms.calc = EMT()
         self.prior_energy = self.current_atoms.get_potential_energy()
-        self.prior_ent = self.get_eom_proxy()
         self.current_atoms.calc = None
         self.init_state_energy = float(self.prior_energy)
         self.init_state_entropy = float(self.prior_ent)
