@@ -52,14 +52,12 @@ class HEA:
         self.num_atoms = None
         self.symbol_list = None
         self.symbol_list_copy = None
-        self.baseline_energy = None
         self.hea_formula = config["formula"]
         self.num_unit_cells = config["num_unit_cells"]
         self.lattice_structure = config["lattice_structure"]
         self.terminal_only = config["terminal_only"]
         self.seed = config["seed"]
         self.device = config["device"]
-        self.num_baseline_randomizations = config["num_baseline_randomizations"]
         self.niflheim = config["niflheim"]
 
         random.seed(self.seed)
@@ -207,22 +205,6 @@ class HEA:
 
         self.num_edges = self.collated_graph["num_edges"]
 
-        # Calculate new baseline plus lowest and largest randomized energy
-        if get_baseline:
-            (
-                self.baseline_energy,
-                self.lowest_randomized_energy,
-                self.largest_randomized_energy,
-                self.all_baseline_en,
-            ) = self.get_baseline(
-                self.symbol_list_copy, self.num_baseline_randomizations
-            )
-        else:
-            (
-                self.baseline_energy,
-                self.lowest_randomized_energy,
-                self.largest_randomized_energy,
-            ) = (0, 0, 0)
 
     def swap_atom(self, focus_index, swap_index):
         # NEW METHOD:
